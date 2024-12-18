@@ -42,6 +42,7 @@ struct BookView: View {
 
             Button {
                 // Action
+                print("Füge \(book.title) zum Einkaufswagen hinzu.")
             } label: {
                 Image(systemName: "cart")
                     .font(.title)

@@ -16,6 +16,7 @@ struct ImageTestView: View {
 
             Image(systemName: "cart")
                 .resizable()
+            // .scaledToFit() und .aspectRatio(contentMode: .fit) machen in diesem Kontext das gleiche
                 .scaledToFit()
 //                .aspectRatio(contentMode: .fit)
                 .frame(width: 150, height: 80)
@@ -26,6 +27,8 @@ struct ImageTestView: View {
                 .scaledToFill()
 //                .aspectRatio(contentMode: .fill)
                 .frame(width: 150, height: 80)
+            // bei fill wird das Image evtl. größer als der frame
+            // durch clipped wird es am Rand des frames abgeschnitten
                 .clipped()
                 .border(.black)
 
