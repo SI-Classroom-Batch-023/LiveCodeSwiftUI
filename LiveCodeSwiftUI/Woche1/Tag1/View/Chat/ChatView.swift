@@ -20,6 +20,7 @@ struct ChatView: View {
 
             Spacer()
 
+            MessageView(message: ChatMessage(text: "Test", time: "15:00"))
             MessageView(message: ChatMessage(text: "Hallo wie gehts?", time: "16:00"))
             MessageView(message: ChatMessage(text: "Super und dir?", time: "16:02"))
 
