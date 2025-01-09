@@ -26,43 +26,71 @@ struct SliderStepperSecureField: View {
 
     var body: some View {
         VStack {
+            // MARK: Slider
+            Text("Slider")
+                .font(.headline)
             Slider(value: $sliderValue, in: 0...5) {
-                // Label wird nicht angezeigt
-//                Image("bell")
+                // Label wird in iOS nicht angezeigt
                 Text("Slider von 0 bis 5")
             }
-            Text(String(format: "%.3f", sliderValue))
 
+            // Selber ein Label hinzufügen
+            // Bevorzugt mit LabeledContent statt HStack
+//            HStack {
+//                Text("Slider von 0 bis 5")
+//                Slider(value: $sliderValue, in: 0...5)
+//            }
+
+            // LabeledContent macht die Semantik hier noch klarer:
+            // Der Text ist ein Label für den Slider. Im Hstack sind es einfach zwei unabhängige Elemente
             LabeledContent {
                 Slider(value: $sliderValue, in: 0...5)
             } label: {
-                Image(systemName: "bell")
 //                Text("Slider von 0 bis 5")
+                Image(systemName: "bell")
             }
 
-            HStack {
-                Text("Slider von 0 bis 5")
-                Slider(value: $sliderValue, in: 0...5)
-            }
+            Text("slidervalue1: " + String(format: "%.3f", sliderValue))
+                .font(.caption)
 
-            // Experiment
+
+            // MARK: Synamischer Sliderwert
+
+            Text("Dynamischer Sliderwert")
+                .font(.headline)
+                .padding(.top)
+            Text("Max. Wert abhängig von Slider1: " + String(format: "%.3f", sliderValue))
+                .font(.subheadline)
             Slider(value: $sliderValue2, in: 0...sliderValue)
-            Text(String(format: "%.3f", sliderValue2))
+            Text("slidervalue2: " + String(format: "%.3f", sliderValue2))
+                .font(.caption)
 
 
+            // MARK: Slider mit Step
+
+            Text("Slider mit step")
+                .font(.title3)
+                .padding(.top)
             Slider(value: $sliderValue3, in: -5...5, step: 1)
             Text(String(format: "%.0f", sliderValue3))
 
+
             Divider()
+
+            // MARK: Stepper
 
             Stepper("Stepper: \(stepperValue)", value: $stepperValue, in: 0...Int.max, step: 5)
 
+
             Divider()
+
+            // MARK: SecureField
 
             SecureField("Passwort:", text: $password)
             SecureField("Passwort:", text: $password, prompt: Text("Verpflichtend"))
             Text(password)
 
+            // BONUS: User kann auswählen ob versteckte Anzeige oder nicht
             HStack {
                 if isHidden {
                     SecureField("Passwort:", text: $password)
@@ -73,6 +101,11 @@ struct SliderStepperSecureField: View {
                     Image(systemName: isHidden ? "eye.slash" : "eye")
                 }
                 .toggleStyle(.button)
+//                Button {
+//                    isHidden.toggle()
+//                } label: {
+//                    Image(systemName: isHidden ? "eye.slash" : "eye")
+//                }
             }
 
 

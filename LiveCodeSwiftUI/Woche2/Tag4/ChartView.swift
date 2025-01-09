@@ -13,17 +13,9 @@ struct Product: Identifiable {
     var title: String
     var price: Double
     var place: String
-
-
-//    var category: String {
-//        if price < 2 {
-//            return "Cheap"
-//        } else {
-//            return "Expensive"
-//        }
-//    }
 }
 
+// BONUS: ChartView
 struct ChartView: View {
 
     let products = [
@@ -38,28 +30,51 @@ struct ChartView: View {
 
     var body: some View {
         VStack {
+            // Version 1: Produkte nach Ort wo sie gekauft wurden eingefärbt
+//            Chart {
+//                ForEach(products){product in
+//                    BarMark(
+//                        x: .value("Produkt", product.title),
+//                        y: .value("Preis", product.price)
+//                    )
+//                    .foregroundStyle(by: .value("Place", product.place))
+//                }
+//            }
+//            .chartForegroundStyleScale([
+//                "Market": .green, "Supermarket": .red
+//            ])
+            // Version 2: Produkte eingefäbrt ob sie günstig sind (unter 2€) oder teuer (über 2€)
+//            Chart {
+//                ForEach(products){product in
+//                    BarMark(
+//                        x: .value("Produkt", product.title),
+//                        y: .value("Preis", product.price)
+//                    )
+//                    .foregroundStyle(by: .value("Place", product.price < 2 ? "Cheap" : "Expensive"))
+//                }
+//            }
+//            .chartForegroundStyleScale(["Cheap": .green, "Expensive": .red])
+            // Version 3: Das Produkt mit dem kleinsten Preis ist grün eingefärbt, alle anderen rot
             Chart {
                 ForEach(products){product in
                     BarMark(
                         x: .value("Produkt", product.title),
                         y: .value("Preis", product.price)
                     )
-                    //                .foregroundStyle(by: .value("Place", product.price < 2 ? "Cheap" : "Expensive"))
                     .foregroundStyle(product.price == products.map({ $0.price }).min() ? .green : .red)
                 }
             }
-            //        .chartForegroundStyleScale([
-            //                    "Cheap": .green, "Expensive": .red
-            //                ])
-            //        .chartForegroundStyleScale([
-            //            "Market": .green, "Supermarket": .red
-            //        ])
-            .chartYScale(domain: [0, 6])
-            .frame(width: 320, height: 320)
             .onAppear {
                 print(products)
+                // map geht in einer Schleife über alle Elemente aus dem products Array und wandelt sie in etwas anders um, in diesem fall in ihren Preis.
+                // Das Ergebnis ist also ein Array in dem nur die Preise stehen
+                // [2.5, 1.8, 1.2, 3.0, 2.7]
                 print(products.map({ $0.price }))
             }
+            // Für alle 3 Versionen
+            .chartYScale(domain: [0, 6])
+            .frame(width: 320, height: 320)
+
 
             Divider()
 
@@ -76,8 +91,8 @@ struct ChartView: View {
                 )
                 .foregroundStyle(.red)
             }
-            .chartYScale(domain: [0, 35])
-            .chartYAxisLabel("Temperatur")
+            .chartYScale(domain: [0, 35]) // Skalierung der y-Achse
+            .chartYAxisLabel("Temperatur") // Achsenbeschriftung
             .frame(width: 320, height: 320)
             .padding(.vertical)
 

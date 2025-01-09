@@ -29,20 +29,20 @@ struct GaugeProgressView: View {
                 // unten
                 Text(gaugeValue.description)
             } minimumValueLabel: {
-                // links
+                // leading (links)
                 Text("0")
             } maximumValueLabel: {
-                // rechts
+                // trailing (rechts)
                 Text("2")
             }
 
 
             Gauge(value: gaugeValue) {
                 Image(systemName: "thermometer")
-//                    .font(.title)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 25)
+                    .font(.headline)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 25)
             }
             .gaugeStyle(.accessoryCircular)
             .tint(.orange)
@@ -66,8 +66,14 @@ struct GaugeProgressView: View {
 
             if isLoading {
                 ProgressView()
+                // BONUS:
+                // Wir möchten 3 Sekunden warten und danach isLoading auf false setzen, damit die ProgressView verschwindet
+                // .task Modifier führt einen Codeblock asynchron aus, wenn die View erscheint
+                // Warten müssen wir immer asynchron ausführen, damit unsere UI währenddessen nicht einfriert und weiter responsive bleibt
                     .task {
+                        // await ist ein Keyword das kennzeichnet, dass wir hier auf einen asynchronen task warten
                         try? await Task.sleep(for: .seconds(3))
+                        // nach 3 Sekunden warten wird die nächste Zeile ausgeführt
                         isLoading = false
                     }
             } else {
@@ -75,6 +81,7 @@ struct GaugeProgressView: View {
             }
 
             ProgressView("Fortschritt", value: progress)
+            // BONUS: jede halbe Sekunde soll der Fortschritt um 10 Prozentpunkte wachsen
                 .task {
                     for _ in 1...10 {
                         try? await Task.sleep(for: .seconds(0.5))
