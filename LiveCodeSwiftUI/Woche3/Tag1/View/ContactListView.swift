@@ -19,6 +19,12 @@ struct ContactListView: View {
         List(contactList) { contact in
             ContactView(contact: contact)
         }
+
+        List {
+            ForEach(contactList) { contact in
+                ContactView(contact: contact)
+            }
+        }
     }
 }
 
