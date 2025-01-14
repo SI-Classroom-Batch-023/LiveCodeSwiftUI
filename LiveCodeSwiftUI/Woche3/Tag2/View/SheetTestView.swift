@@ -25,7 +25,6 @@ struct SheetTestView: View {
         }
         .sheet(isPresented: $showSheet, onDismiss: onDismiss) {
             SheetSubView(shoppingList: $shoppingList, showSheet: $showSheet)
-            SheetSubViewBonus(addItem: addShoppingItem)
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.medium, .fraction(0.2)])
 //                .interactiveDismissDisabled()
