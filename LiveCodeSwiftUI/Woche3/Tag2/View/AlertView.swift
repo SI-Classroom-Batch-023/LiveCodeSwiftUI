@@ -33,18 +33,20 @@ struct AlertView: View {
                 Button("Zufall") {
                     if Bool.random() {
                         // Text löschen
-                        longText = ""
+                        deleteText()
                     }
                 }
 
-                Button("Löschen", role: .destructive) {
+                Button("Löschen", role: .destructive, action: deleteText)
                     // Text löschen
-                    longText = ""
-                }
                 // wegen role destructive wird der Button rot geschrieben (design guidelines)
             }
         }
         .padding()
+    }
+
+    func deleteText() {
+        longText = ""
     }
 
 }
