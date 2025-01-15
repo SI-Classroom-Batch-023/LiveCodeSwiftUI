@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct SheetTestView2: View {
+struct SheetUndAlertMitObjekt: View {
 
+    // ACHTUNG ShoppingItem liegt im Ordner Tag3 > Navigation > Model
     @State private var shoppingList = [ShoppingItem(name: "Bananen"), ShoppingItem(name:"Kaffee")]
 
     @State private var showSheet = false
@@ -56,7 +57,8 @@ struct SheetTestView2: View {
             showSheet = true
         }
         .sheet(isPresented: $showSheet) {
-            SheetSubView2(shoppingList: $shoppingList, showSheet: $showSheet)
+            // ACHTUNG AddShoppingItemView liegt im Ordner Tag3 > Navigation > View
+            AddShoppingItemView(shoppingList: $shoppingList, showSheet: $showSheet)
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.medium, .fraction(0.2)])
         }
@@ -68,5 +70,5 @@ struct SheetTestView2: View {
 }
 
 #Preview {
-    SheetTestView2()
+    SheetUndAlertMitObjekt()
 }

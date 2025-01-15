@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SheetSubView2: View {
+struct AddShoppingItemView: View {
 
     @State private var inputText = ""
 
@@ -31,5 +31,5 @@ struct SheetSubView2: View {
 }
 
 #Preview {
-    SheetSubView2(shoppingList: .constant([]), showSheet: .constant(true))
+    AddShoppingItemView(shoppingList: .constant([]), showSheet: .constant(true))
 }
