@@ -25,6 +25,15 @@ struct Destination2: View {
                 .foregroundStyle(.green)
                 .font(.title)
 
+            NavigationLink {
+                // Destination
+                Destination1()
+            } label: {
+                Text("Navigiere ohne Pfad (Destination 1)")
+                    .font(.title3)
+            }
+            .tint(.orange)
+
             Spacer()
 
         }
